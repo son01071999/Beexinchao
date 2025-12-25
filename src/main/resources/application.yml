@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: BeeXinChao
+  docker:
+    compose:
+      file: ./resource/docker-compose.yaml
+  datasource:
+    url: jdbc:mysql://localhost:3305/mydb?allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    username: ${MYSQL_FB_USERNAME:sonnguyen}
+    password: ${MYSQL_FB_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        order_updates: true
+        order_insert: true
+    show-sql: true
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}

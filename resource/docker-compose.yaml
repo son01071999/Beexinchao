@@ -1,0 +1,32 @@
+services:
+  mysql:
+    container_name: my-db-mysql
+    image: 'mysql:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: sonnguyen
+      MYSQL_PASSWORD: 123456
+    ports:
+      - 3305:3306
+    volumes:
+      - ./mysql-init.d:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+#  beexinchao-app:
+#    container_name: beexinchao-app
+#    depends_on:
+#      - redis
+#    environment:
+#      SPRING_DATA_REDIS_HOST: redis
+#      SPRING_DATA_REDIS_PORT: 6379
